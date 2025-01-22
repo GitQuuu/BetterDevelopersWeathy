@@ -20,7 +20,7 @@ public class HomeController : ControllerBase
     public async Task<IActionResult> Index(string city, int days, string language)
     {
         var response = await _weatherApiWebService.GetWeatherDataAsync(city, days, language);
-        return Ok("Test endpoint");
+        return Ok(response.Content);
     }
    
 }
