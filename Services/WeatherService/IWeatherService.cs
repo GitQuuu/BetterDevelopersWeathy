@@ -5,6 +5,6 @@ namespace Services.WeatherApiWebService.WeatherService;
 
 public interface IWeatherService
 {
-    Task<ServiceResult<object>> GetWeatherDataAsync(ApiResponse<object> apiResponse,
+    Task<ServiceResult<object>> HandleWeatherDataAsync(ApiResponse<object> apiResponse,
         CancellationToken cancellationToken);
 }
