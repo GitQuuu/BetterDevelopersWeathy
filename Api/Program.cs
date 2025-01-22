@@ -8,6 +8,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddControllers();
 builder.Services.AddDefaultIdentityExtension();
 builder.Services.AddSwaggerGenExtension();
+builder.Services.AddServicesExtension();
 
 var app = builder.Build();
 

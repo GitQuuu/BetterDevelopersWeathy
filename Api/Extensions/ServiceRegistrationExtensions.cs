@@ -3,6 +3,7 @@ using DAL.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Services.External.WeatherApiWebService;
 
 namespace Api.Extensions;
 
@@ -23,16 +24,17 @@ public static class ServiceRegistrationExtensions
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "BetterDevelopersWeathy API", 
-                    Version = "v1", 
-                    Description = $"API documentation for the BetterDevelopers weather application last updated {DateTime.UtcNow}",
+                    Title = "BetterDevelopersWeathy API",
+                    Version = "v1",
+                    Description =
+                        $"API documentation for the BetterDevelopers weather application last updated {DateTime.UtcNow}",
                     Contact = new OpenApiContact
                     {
                         Name = "Qu",
                         Email = "DevQu@hotmail.com",
                     }
                 });
-                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename),true);
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename), true);
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Type = SecuritySchemeType.Http,
@@ -57,7 +59,7 @@ public static class ServiceRegistrationExtensions
             }
         );
     }
-    
+
     /// <summary>
     /// Centralizing DBContext configurations
     /// </summary>
@@ -73,7 +75,7 @@ public static class ServiceRegistrationExtensions
             options.UseSqlite(connectionString));
 
     }
-    
+
     /// <summary>
     ///  Identity configuration extension
     /// </summary>
@@ -94,5 +96,14 @@ public static class ServiceRegistrationExtensions
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultUI()
             .AddDefaultTokenProviders();
+    }
+
+    /// <summary>
+    /// Service registration extension
+    /// </summary>
+    /// <param name="services"></param>
+    public static void AddServicesExtension(this IServiceCollection services)
+    {
+        services.AddScoped<IWeatherApiWebService, WeatherApiWebService>();
     }
 }
