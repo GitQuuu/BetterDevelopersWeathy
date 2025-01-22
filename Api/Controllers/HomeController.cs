@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Services.External.WeatherApiWebService;
+using Services.WeatherService;
 
 namespace Api.Controllers;
 
@@ -8,19 +9,20 @@ namespace Api.Controllers;
 public class HomeController : ControllerBase
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly IWeatherApiWebService _weatherApiWebService;
+    private readonly IWeatherBll _weatherBll;
 
-    public HomeController(ILogger<HomeController> logger, IWeatherApiWebService weatherApiWebService)
+
+    public HomeController(ILogger<HomeController> logger, IWeatherBll weatherBll)
     {
         _logger = logger;
-        _weatherApiWebService = weatherApiWebService;
+        _weatherBll = weatherBll;
     }
 
     [HttpGet]
     public async Task<IActionResult> Index(string city, int days, string language)
     {
-        var response = await _weatherApiWebService.ForeCastAsync(city, days, language);
-        return Ok(response.Content);
+        var response = await _weatherBll.GetWeatherDataAsync(city, days, language);
+        return Ok(response);
     }
    
 }

@@ -6,9 +6,9 @@ public partial class WeatherBll
 {
     public async Task<IActionResult> GetWeatherDataAsync(string city, int days, string language, CancellationToken ct)
     {
-        var apiresponse = await _weatherApiWebService.ForeCastAsync(city, days, language);
+        var apiResponse = await _weatherApiWebService.ForeCastAsync(city, days, language, ct);
         
-        var response = await _weatherService.HandleWeatherDataAsync(apiresponse,ct);
+        var response = await _weatherService.HandleWeatherDataAsync(apiResponse,ct);
         
         return Ok(response.Data);
     }
