@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContextExtension(builder.Configuration);
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddControllers();
+builder.Services.AddHttpClientExtension(builder.Configuration);
 builder.Services.AddDefaultIdentityExtension();
 builder.Services.AddSwaggerGenExtension();
 builder.Services.AddServicesExtension();
