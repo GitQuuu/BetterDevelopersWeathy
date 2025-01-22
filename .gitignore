@@ -351,3 +351,7 @@ MigrationBackup/
 .idea/.idea.BetterDevelopersWeathy/.idea/workspace.xml
 
 .idea/.idea.BetterDevelopersWeathy/.idea/
+
+Api/app.db-shm
+
+Api/app.db-wal
