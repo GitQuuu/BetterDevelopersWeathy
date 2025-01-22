@@ -1,4 +1,6 @@
 using System.Reflection;
+using Api.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 
 namespace Api.Extensions;
@@ -53,5 +55,27 @@ public static class ServiceRegistrationExtensions
                 });
             }
         );
+    }
+    
+    /// <summary>
+    ///  Identity configuration extension
+    /// </summary>
+    /// <param name="services"></param>
+    public static void AddDefaultIdentityExtension(this IServiceCollection services)
+    {
+        services.AddDefaultIdentity<IdentityUser>(
+                options =>
+                {
+                    options.SignIn.RequireConfirmedAccount = false;
+                    options.Password.RequiredLength = 7;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                })
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultUI()
+            .AddDefaultTokenProviders();
     }
 }
