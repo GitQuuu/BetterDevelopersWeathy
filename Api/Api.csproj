@@ -31,4 +31,9 @@
       <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ViewStart.cshtml" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Dependencies\Dependencies.csproj" />
+      <ProjectReference Include="..\Services\Services.csproj" />
+    </ItemGroup>
+
 </Project>
