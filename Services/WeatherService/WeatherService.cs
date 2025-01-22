@@ -1,6 +1,6 @@
-using Services.External.WeatherApiWebService.WeatherService;
+using Services.WeatherApiWebService.WeatherService;
 
-namespace Services.External.WeatherService;
+namespace Services.WeatherService;
 
 public partial class WeatherService : IWeatherService
 {
