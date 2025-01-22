@@ -2,7 +2,9 @@ using System.Reflection;
 using DAL.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Refit;
 using Services.External.WeatherApiWebService;
 
 namespace Api.Extensions;
@@ -104,6 +106,43 @@ public static class ServiceRegistrationExtensions
     /// <param name="services"></param>
     public static void AddServicesExtension(this IServiceCollection services)
     {
-        services.AddScoped<IWeatherApiWebService, WeatherApiWebService>();
+        
+    }
+    
+     /// <summary>
+    /// Centralizing httpClient configurations
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="configuration"></param>
+    /// <exception cref="InvalidOperationException"></exception>
+    public static void AddHttpClientExtension(this IServiceCollection services, IConfiguration configuration )
+    {
+        // Bind SallingGroup settings
+        services.Configure<WeatherApiConfigurations>(
+            configuration.GetSection("WeatherApi"));
+
+        // Register Refit client
+        services.AddRefitClient<IWeatherApiWebService>()
+            .ConfigureHttpClient((provider, client) =>
+            {
+                var settings = provider.GetRequiredService<IOptions<WeatherApiConfigurations>>().Value;
+
+                // Validate token
+                if (string.IsNullOrEmpty(settings.Key))
+                {
+                    throw new InvalidOperationException("API key not found");
+                }
+
+                // Validate endpoint
+                if (string.IsNullOrEmpty(settings.Endpoint))
+                {
+                    throw new InvalidOperationException("Base address not found");
+                }
+
+                // Set the BaseAddress and headers
+                client.BaseAddress = new Uri(settings.Endpoint);
+                client.DefaultRequestHeaders.Add("Key", $"{settings.Key}");
+            });
+        
     }
 }
