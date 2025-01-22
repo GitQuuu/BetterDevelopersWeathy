@@ -3,8 +3,15 @@ using Microsoft.OpenApi.Models;
 
 namespace Api.Extensions;
 
+/// <summary>
+/// To keep the program.cs clean from clutters
+/// </summary>
 public static class ServiceRegistrationExtensions
 {
+    /// <summary>
+    /// SwaggerGen middleware
+    /// </summary>
+    /// <param name="services"></param>
     public static void AddSwaggerGenExtension(this IServiceCollection services)
     {
         var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
