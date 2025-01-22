@@ -1,6 +1,7 @@
 using System.Reflection;
 using Api.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 namespace Api.Extensions;
@@ -55,6 +56,22 @@ public static class ServiceRegistrationExtensions
                 });
             }
         );
+    }
+    
+    /// <summary>
+    /// Centralizing DBContext configurations
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="configuration"></param>
+    /// <exception cref="InvalidOperationException"></exception>
+    public static void AddDbContextExtension(this IServiceCollection services, IConfiguration configuration)
+    {
+        // Add services to the container.
+        var connectionString = configuration.GetConnectionString("DefaultConnection") ??
+                               throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+        services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlite(connectionString));
+
     }
     
     /// <summary>
