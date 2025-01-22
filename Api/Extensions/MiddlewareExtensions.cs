@@ -1,50 +1,18 @@
-using System.Reflection;
-using Microsoft.OpenApi.Models;
-
 namespace Api.Extensions;
 
 public static class MiddlewareExtensions
 {
-    public static void AddSwaggerGenExtension(this IServiceCollection services)
+  
+    /// <summary>
+    /// SwaggerUi extensions
+    /// </summary>
+    /// <param name="app"></param>
+    public  static void UseSwaggerUiExtensions(this IApplicationBuilder app)
     {
-        var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-        services.AddSwaggerGen(
-            c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "BetterDevelopersWeathy API", 
-                    Version = "v1", 
-                    Description = $"API documentation for the BetterDevelopers weather application last updated {DateTime.UtcNow}",
-                    Contact = new OpenApiContact
-                    {
-                        Name = "Qu",
-                        Email = "DevQu@hotmail.com",
-                    }
-                });
-                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename),true);
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Type = SecuritySchemeType.Http,
-                    Scheme = "bearer",
-                    BearerFormat = "JWT",
-                    Description = "Enter JWT Token",
-                });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            }
-                        },
-                        []
-                    }
-                });
-            }
-        );
+        app.UseSwaggerUI(options =>
+        {
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "My BetterDevelopersWeathy api V1");
+            options.RoutePrefix = string.Empty; // Set Swagger UI at the app's root
+        });
     }
 }

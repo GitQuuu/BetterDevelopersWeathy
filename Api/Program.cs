@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Api.Data;
+using Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +34,8 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSwagger();
+app.UseSwaggerUiExtensions();
 
 app.MapStaticAssets();
 
