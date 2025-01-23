@@ -10,7 +10,7 @@ public partial class WeatherBll
 
         var response = await _weatherService.HandleWeatherDataAsync(weatherApiResponse,ct);
         
-        return Ok(response.Data);
+        return await _responseService.HandleResultAsync(response);
     }
 
 }

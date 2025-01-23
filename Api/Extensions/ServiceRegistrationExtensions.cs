@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Refit;
 using Services.External.WeatherApiWebService;
+using Services.External.WeatherApiWebService.ResponseService;
 using Services.WeatherApiWebService.WeatherService;
 using Services.WeatherService;
 
@@ -110,6 +111,7 @@ public static class ServiceRegistrationExtensions
     {
         services.AddScoped<IWeatherBll, WeatherBll>();
         services.AddScoped<IWeatherService, WeatherService>();
+        services.AddScoped<IResponseService, ResponseService>();
     }
     
      /// <summary>
