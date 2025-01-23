@@ -1,3 +1,4 @@
+using System.Net;
 using Refit;
 using Services.External.WeatherApiWebService;
 
@@ -5,8 +6,10 @@ namespace Services.WeatherService;
 
 public partial class WeatherService
 {
-    public Task<ServiceResult<object>> HandleWeatherDataAsync(ApiResponse<object> apiResponse,CancellationToken cancellationToken)
+    public async Task<ServiceResult<object>> HandleWeatherDataAsync(ApiResponse<object> apiResponse,CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var data = apiResponse.Content;
+       
+        return new ServiceResult<object>(true, HttpStatusCode.OK,data);
     }
 }
