@@ -1,5 +1,4 @@
 using System.Text.Json;
-using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Services.External.WeatherApiWebService;
 
@@ -13,7 +12,7 @@ public partial class WeatherBll
 
         // Deserialize JSON content to WeatherResponse model
         var weatherData = JsonSerializer.Deserialize<WeatherApiResponse>(
-            apiResponse.Content.ToString(),
+            apiResponse.Content?.ToString(),
             new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
         var response = await _weatherService.HandleWeatherDataAsync(apiResponse,ct);
