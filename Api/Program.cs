@@ -1,7 +1,9 @@
 using Api.Extensions;
+using Mapster;
+
+TypeAdapterConfig.GlobalSettings.Default.PreserveReference(true);
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 builder.Services.AddDbContextExtension(builder.Configuration);
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
