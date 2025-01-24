@@ -1,10 +1,5 @@
-using Refit;
-using Services.External.WeatherApiWebService;
+namespace Services.WeatherService;
 
-namespace Services.WeatherApiWebService.WeatherService;
-
-public interface IWeatherService
-{
-    Task<ServiceResult<WeatherApiResponse>> HandleWeatherDataAsync(ApiResponse<object> apiResponse,
-        CancellationToken cancellationToken);
-}
+// This is the main interface file for IWeatherService, this exist for the solely purpose to allow multiple partial IWeatherService files
+// because of namespace
+public partial interface IWeatherService { }

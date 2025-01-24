@@ -18,6 +18,14 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseCors(options =>
+    {
+        options.AllowAnyHeader();
+        options.AllowAnyMethod();
+        options.AllowAnyOrigin();
+    });
+    app.UseSwagger();
+    app.UseSwaggerUiExtensions();
     app.UseMigrationsEndPoint();
 }
 else
@@ -31,8 +39,6 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();
-app.UseSwagger();
-app.UseSwaggerUiExtensions();
 
 app.MapStaticAssets();
 

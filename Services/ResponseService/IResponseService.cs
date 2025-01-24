@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Services.External.WeatherApiWebService.ResponseService;
+namespace Services.ResponseService;
 
 public interface IResponseService
 {
     /// <summary>
-    /// Handles the error response based on the provided ServiceResult.
+    /// Handles the response based on the provided ServiceResult.
     /// </summary>
     /// <typeparam name="T">The expected return type.</typeparam>
     /// <param name="result">The response from ServiceResult&lt;T&gt;.</param>

@@ -1,8 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
-
 namespace Services.WeatherService;
 
-public interface IWeatherBll
-{
-    Task<IActionResult> GetWeatherDataAsync(string city, int days, string language, CancellationToken cancellationToken = default);
-}
+// This is the main interface file for IWeatherBll, this exist for the solely purpose to allow multiple partial IWeatherBll files
+// because of namespace
+public partial interface IWeatherBll {}

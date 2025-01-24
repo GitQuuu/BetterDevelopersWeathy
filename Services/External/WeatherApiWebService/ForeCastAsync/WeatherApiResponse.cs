@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Services.External.WeatherApiWebService;
+namespace Services.External.WeatherApiWebService.ForeCastAsync;
 
 public class WeatherApiResponse
 {
