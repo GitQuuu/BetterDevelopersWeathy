@@ -122,7 +122,7 @@ public static class ServiceRegistrationExtensions
     /// <exception cref="InvalidOperationException"></exception>
     public static void AddHttpClientExtension(this IServiceCollection services, IConfiguration configuration )
     {
-        // Bind SallingGroup settings
+        // Bind Refit settings
         services.Configure<WeatherApiConfigurations>(
             configuration.GetSection("WeatherApi"));
 

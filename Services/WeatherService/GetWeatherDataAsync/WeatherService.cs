@@ -21,6 +21,7 @@ public partial class WeatherService
             new ServiceResult<WeatherApiResponse>(
                 true, 
                 HttpStatusCode.OK,
+                "Success",
                 weatherData)
             );
     }
