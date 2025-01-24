@@ -1,8 +1,9 @@
 using System.Net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Services.External.WeatherApiWebService;
 
-namespace Services.External.WeatherApiWebService.ResponseService;
+namespace Services.ResponseService;
 
 /// <summary>
 /// Handling the service result response

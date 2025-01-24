@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Services.External.WeatherApiWebService;
-using Services.External.WeatherApiWebService.ResponseService;
+using Services.ResponseService;
 
 
 namespace Services.WeatherService;
