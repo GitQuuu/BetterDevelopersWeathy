@@ -2,7 +2,13 @@ using System.Reflection;
 using DAL.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Refit;
+using Services.External.WeatherApiWebService;
+using Services.External.WeatherApiWebService.ResponseService;
+using Services.WeatherApiWebService.WeatherService;
+using Services.WeatherService;
 
 namespace Api.Extensions;
 
@@ -23,16 +29,17 @@ public static class ServiceRegistrationExtensions
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "BetterDevelopersWeathy API", 
-                    Version = "v1", 
-                    Description = $"API documentation for the BetterDevelopers weather application last updated {DateTime.UtcNow}",
+                    Title = "BetterDevelopersWeathy API",
+                    Version = "v1",
+                    Description =
+                        $"API documentation for the BetterDevelopers weather application last updated {DateTime.UtcNow}",
                     Contact = new OpenApiContact
                     {
                         Name = "Qu",
                         Email = "DevQu@hotmail.com",
                     }
                 });
-                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename),true);
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename), true);
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Type = SecuritySchemeType.Http,
@@ -57,7 +64,7 @@ public static class ServiceRegistrationExtensions
             }
         );
     }
-    
+
     /// <summary>
     /// Centralizing DBContext configurations
     /// </summary>
@@ -73,7 +80,7 @@ public static class ServiceRegistrationExtensions
             options.UseSqlite(connectionString));
 
     }
-    
+
     /// <summary>
     ///  Identity configuration extension
     /// </summary>
@@ -94,5 +101,53 @@ public static class ServiceRegistrationExtensions
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultUI()
             .AddDefaultTokenProviders();
+    }
+
+    /// <summary>
+    /// Service registration extension
+    /// </summary>
+    /// <param name="services"></param>
+    public static void AddServicesExtension(this IServiceCollection services)
+    {
+        services.AddScoped<IWeatherBll, WeatherBll>();
+        services.AddScoped<IWeatherService, WeatherService>();
+        services.AddScoped<IResponseService, ResponseService>();
+    }
+    
+     /// <summary>
+    /// Centralizing httpClient configurations
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="configuration"></param>
+    /// <exception cref="InvalidOperationException"></exception>
+    public static void AddHttpClientExtension(this IServiceCollection services, IConfiguration configuration )
+    {
+        // Bind Refit settings
+        services.Configure<WeatherApiConfigurations>(
+            configuration.GetSection("WeatherApi"));
+
+        // Register Refit client
+        services.AddRefitClient<IWeatherApiWebService>()
+            .ConfigureHttpClient((provider, client) =>
+            {
+                var settings = provider.GetRequiredService<IOptions<WeatherApiConfigurations>>().Value;
+
+                // Validate token
+                if (string.IsNullOrEmpty(settings.Key))
+                {
+                    throw new InvalidOperationException("API key not found");
+                }
+
+                // Validate endpoint
+                if (string.IsNullOrEmpty(settings.Endpoint))
+                {
+                    throw new InvalidOperationException("Base address not found");
+                }
+
+                // Set the BaseAddress and headers
+                client.BaseAddress = new Uri(settings.Endpoint);
+                client.DefaultRequestHeaders.Add("Key", $"{settings.Key}");
+            });
+        
     }
 }
