@@ -7,7 +7,6 @@ using Microsoft.OpenApi.Models;
 using Refit;
 using Services.External.WeatherApiWebService;
 using Services.External.WeatherApiWebService.ResponseService;
-using Services.WeatherApiWebService.WeatherService;
 using Services.WeatherService;
 
 namespace Api.Extensions;
