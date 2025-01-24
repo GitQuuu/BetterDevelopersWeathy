@@ -2,11 +2,6 @@ using System.Text.Json.Serialization;
 
 namespace Services.External.WeatherApiWebService;
 
-public class RootObject
-{
-    public WeatherApiResponse Content { get; set; }
-    public string StatusCode { get; set; }
-}
 public class WeatherApiResponse
 {
     public Location Location { get; set; }
