@@ -3,6 +3,9 @@ using Services.WeatherService;
 
 namespace Api.Controllers.WeatherController;
 
+/// <summary>
+/// Endpoint for weather
+/// </summary>
 [ApiController]
 [Route("api/[controller]")]
 public partial class WeatherController

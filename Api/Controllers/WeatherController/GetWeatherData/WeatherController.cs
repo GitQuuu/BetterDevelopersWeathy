@@ -2,9 +2,6 @@
 
 namespace Api.Controllers.WeatherController;
 
-/// <summary>
-/// Endpoint for weather
-/// </summary>
 public partial class WeatherController
 {
     /// <summary>
