@@ -21,8 +21,7 @@ public class HomeController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Index(string city, int days, string language)
     {
-        var response = await _weatherBll.GetWeatherDataAsync(city, days, language);
-        return Ok(response);
+        return await _weatherBll.GetWeatherDataAsync(city, days, language);
     }
    
 }
