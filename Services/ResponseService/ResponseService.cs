@@ -1,7 +1,6 @@
 using System.Net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Services.External.WeatherApiWebService;
 
 namespace Services.ResponseService;
 

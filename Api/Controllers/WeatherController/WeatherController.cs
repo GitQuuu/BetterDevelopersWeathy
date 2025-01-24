@@ -4,7 +4,7 @@ using Services.WeatherService;
 namespace Api.Controllers.WeatherController;
 
 /// <summary>
-/// Endpoint for weather
+/// Endpoint for weather, handles request and return response
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]

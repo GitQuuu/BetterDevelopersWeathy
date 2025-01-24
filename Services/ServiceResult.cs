@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace Services.External.WeatherApiWebService;
+namespace Services;
 
 /// <summary>
 /// This a generic service result object Use in service layer to return a proper error response so upper layer can decide what to do with the response

@@ -1,4 +1,3 @@
-using Services.External.WeatherApiWebService;
 using Services.External.WeatherApiWebService.ForeCastAsync;
 
 namespace Services.WeatherService;

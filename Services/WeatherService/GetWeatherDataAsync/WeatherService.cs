@@ -1,7 +1,4 @@
 using System.Net;
-using System.Text.Json;
-using Refit;
-using Services.External.WeatherApiWebService;
 using Services.External.WeatherApiWebService.ForeCastAsync;
 
 namespace Services.WeatherService;

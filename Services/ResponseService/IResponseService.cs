@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Services.External.WeatherApiWebService;
 
 namespace Services.ResponseService;
 

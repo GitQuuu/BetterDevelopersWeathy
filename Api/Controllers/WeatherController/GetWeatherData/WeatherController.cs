@@ -5,9 +5,9 @@ namespace Api.Controllers.WeatherController;
 public partial class WeatherController
 {
     /// <summary>
-    /// Get weather forecast
+    /// Get weather forecast data
     /// </summary>
-    /// <param name="query">Can be anything from city name, zipcode, latitude and longitude</param>
+    /// <param name="query">Can be name of city or latitude and longitude</param>
     /// <param name="days"> number of days ahead to be forecasted ( only positive numbers allowed )</param>
     /// <param name="language">specify a preferred language</param>///
     /// <returns>
@@ -17,7 +17,7 @@ public partial class WeatherController
     /// </returns>
     /// <remarks>
     /// Example: GET /api/weather?query=56.1518,10.2064&amp;days=7&amp;language=dk <br />
-    /// Example: GET /api/weather?query=Aalborg&amp;days=2&amp;language=dk
+    /// Example: GET /api/weather?query=Århus&amp;days=2&amp;language=dk
     /// </remarks>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
