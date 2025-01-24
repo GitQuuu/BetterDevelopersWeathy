@@ -11,7 +11,7 @@ public partial class WeatherController
     /// Get weather forecast
     /// </summary>
     /// <param name="query">Can be anything from city name, zipcode, latitude and longitude</param>
-    /// <param name="days"> number of days ahead to be forecasted</param>
+    /// <param name="days"> number of days ahead to be forecasted ( only positive numbers allowed )</param>
     /// <param name="language">specify a preferred language</param>///
     /// <returns>
     /// Returns an HTTP response with the weather forecast data. If successful, 
@@ -23,8 +23,10 @@ public partial class WeatherController
     /// Example: GET /api/weather?query=Aalborg&amp;days=2&amp;language=dk
     /// </remarks>
     [HttpGet]
-    [ProducesDefaultResponseType]
-    public async Task<IActionResult> GetWeatherData(string query, int days, string language)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetWeatherData(string query, uint days, string language)
     {
         return await _weatherBll.GetWeatherDataAsync(query, days, language);
     }

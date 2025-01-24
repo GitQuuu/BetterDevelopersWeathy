@@ -4,7 +4,7 @@ namespace Services.WeatherService;
 
 public partial class WeatherBll
 {
-    public async Task<IActionResult> GetWeatherDataAsync(string city, int days, string language, CancellationToken ct)
+    public async Task<IActionResult> GetWeatherDataAsync(string city, uint days, string language, CancellationToken ct)
     {
         var weatherApiResponse = await _weatherApiWebService.ForeCastAsync(city, days, language, ct);
 
