@@ -14,6 +14,7 @@ builder.Services.AddDefaultIdentityExtension();
 builder.Services.AddSwaggerGenExtension();
 builder.Services.AddApiVersioningExtension();
 builder.Services.AddServicesExtension();
+builder.Services.AddCorsExtension();
 
 var app = builder.Build();
 
@@ -40,6 +41,7 @@ else
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseCors("AllowBetterWeathy"); 
 app.UseAuthorization();
 
 app.MapStaticAssets();
