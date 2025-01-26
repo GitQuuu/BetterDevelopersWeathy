@@ -9,6 +9,7 @@ namespace Api.Controllers.WeatherController.v2;
 public class WeatherController : ControllerBase
 {
     [HttpGet]
+    [Route("TestVersioning")]
     public async Task<IActionResult> TestEndpoint()
     {
         return Ok("Endpoint works for version 2.0");
