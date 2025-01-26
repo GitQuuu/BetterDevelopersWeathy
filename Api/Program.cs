@@ -1,4 +1,5 @@
 using Api.Extensions;
+using Azure.Identity;
 using Mapster;
 
 TypeAdapterConfig.GlobalSettings.Default.PreserveReference(true);
@@ -13,6 +14,19 @@ builder.Services.AddDefaultIdentityExtension();
 builder.Services.AddSwaggerGenExtension();
 builder.Services.AddApiVersioningExtension();
 builder.Services.AddServicesExtension();
+
+// Load Azure Key Vault secrets into appsettings
+var keyVaultUrl = builder.Configuration["AzureKeyVault:VaultUri"];
+
+if (!string.IsNullOrEmpty(keyVaultUrl))
+{
+    var credential = new ClientSecretCredential(
+        Environment.GetEnvironmentVariable("AZURE_TENANT_ID",EnvironmentVariableTarget.Machine), 
+        Environment.GetEnvironmentVariable("AZURE_CLIENT_ID",EnvironmentVariableTarget.Machine), 
+        Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET",EnvironmentVariableTarget.Machine));
+
+    builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUrl), credential);
+}
 
 var app = builder.Build();
 
