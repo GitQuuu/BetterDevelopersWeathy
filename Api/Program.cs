@@ -27,8 +27,6 @@ if (app.Environment.IsDevelopment())
         options.AllowAnyMethod();
         options.AllowAnyOrigin();
     });
-    app.UseSwagger();
-    app.UseSwaggerUiExtensions();
     app.UseMigrationsEndPoint();
 }
 else
@@ -38,6 +36,8 @@ else
     app.UseHsts();
 }
 
+app.UseSwagger();
+app.UseSwaggerUiExtensions();
 app.UseHttpsRedirection();
 app.UseRouting();
 
