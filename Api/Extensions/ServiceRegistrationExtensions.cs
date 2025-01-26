@@ -18,7 +18,25 @@ namespace Api.Extensions;
 public static class ServiceRegistrationExtensions
 {
     /// <summary>
-    /// SwaggerGen middleware
+    /// Cors extensions
+    /// </summary>
+    /// <param name="services"></param>
+    public static void AddCorsExtension(this IServiceCollection services)
+    {
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowBetterWeathy",
+                policy =>
+                {
+                    policy.WithOrigins("https://betterweathy.netlify.app")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+                });
+        });
+    }
+    /// <summary>
+    /// SwaggerGen extensions
     /// </summary>
     /// <param name="services"></param>
     public static void AddSwaggerGenExtension(this IServiceCollection services)
