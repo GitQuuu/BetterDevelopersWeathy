@@ -1,5 +1,8 @@
 namespace Api.Extensions;
 
+/// <summary>
+/// To keep the program.cs free of clutter
+/// </summary>
 public static class MiddlewareExtensions
 {
   
