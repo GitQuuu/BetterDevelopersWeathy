@@ -24,9 +24,9 @@ public static class AzureKeyVault
                 return;
             }
 
-            var tenantId = Environment.GetEnvironmentVariable("AZURE_TENANT_ID", EnvironmentVariableTarget.Machine);
-            var clientId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID", EnvironmentVariableTarget.Machine);
-            var clientSecret = Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET", EnvironmentVariableTarget.Machine);
+            var tenantId = Environment.GetEnvironmentVariable("AZURE_TENANT_ID");
+            var clientId = Environment.GetEnvironmentVariable("AZURE_CLIENT_ID");
+            var clientSecret = Environment.GetEnvironmentVariable("AZURE_CLIENT_SECRET");
 
             if (string.IsNullOrEmpty(tenantId) || string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret))
             {
