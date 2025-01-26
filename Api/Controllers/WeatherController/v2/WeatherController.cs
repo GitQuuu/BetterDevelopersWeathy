@@ -8,10 +8,14 @@ namespace Api.Controllers.WeatherController.v2;
 [Route("api/v{version:apiVersion}/[controller]")]
 public class WeatherController : ControllerBase
 {
+    /// <summary>
+    /// Testing endpoint for versioning
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
     [Route("TestVersioning")]
     public async Task<IActionResult> TestEndpoint()
     {
-        return Ok("Endpoint works for version 2.0");
+        return await Task.FromResult(Ok("Endpoint works for version 2.0"));
     }
 }
