@@ -3,7 +3,6 @@ using Asp.Versioning;
 using DAL.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Refit;
@@ -176,4 +175,5 @@ public static class ServiceRegistrationExtensions
             });
         
     }
+
 }

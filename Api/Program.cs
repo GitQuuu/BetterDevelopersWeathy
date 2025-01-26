@@ -1,5 +1,4 @@
 using Api.Extensions;
-using Azure.Identity;
 using Mapster;
 
 TypeAdapterConfig.GlobalSettings.Default.PreserveReference(true);
