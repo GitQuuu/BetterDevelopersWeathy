@@ -9,7 +9,7 @@ public partial class WeatherBll
     {
         var weatherApiResponse = await _weatherApiWebService.ForeCastAsync(city, days, language, ct);
 
-        var response = await _weatherService.HandleWeatherDataAsync(weatherApiResponse.Content,ct);
+        var response = await _weatherService.HandleWeatherDataAsync(weatherApiResponse,ct);
         
         return await _responseService.HandleResultAsync(response);
     

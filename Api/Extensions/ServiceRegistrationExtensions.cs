@@ -172,7 +172,7 @@ public static class ServiceRegistrationExtensions
             .ConfigureHttpClient((provider, client) =>
             {
                 var settings = provider.GetRequiredService<IOptions<WeatherApiConfigurations>>().Value;
-
+               
                 // Validate token
                 if (string.IsNullOrEmpty(settings.Key))
                 {
@@ -189,7 +189,6 @@ public static class ServiceRegistrationExtensions
                 client.BaseAddress = new Uri(settings.Endpoint);
                 client.DefaultRequestHeaders.Add("Key", $"{settings.Key}");
             });
-        
     }
 
 }
