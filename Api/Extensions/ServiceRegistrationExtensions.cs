@@ -68,6 +68,10 @@ public static class ServiceRegistrationExtensions
         );
     }
 
+    /// <summary>
+    /// Enable versioning with swagger
+    /// </summary>
+    /// <param name="services"></param>
     public static void AddApiVersioningExtension(this IServiceCollection services)
     {
         services.AddApiVersioning(options =>
