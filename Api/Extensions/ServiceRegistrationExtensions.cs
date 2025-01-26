@@ -7,7 +7,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Refit;
 using Services.External.WeatherApiWebService;
-using Services.KeyVaultService;
 using Services.ResponseService;
 using Services.WeatherService;
 
@@ -136,7 +135,6 @@ public static class ServiceRegistrationExtensions
         services.AddScoped<IWeatherBll, WeatherBll>();
         services.AddScoped<IWeatherService, WeatherService>();
         services.AddScoped<IResponseService, ResponseService>();
-        services.AddScoped<IKeyVaultService, KeyVaultService>();
     }
     
      /// <summary>
