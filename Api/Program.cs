@@ -4,6 +4,7 @@ using Mapster;
 TypeAdapterConfig.GlobalSettings.Default.PreserveReference(true);
 
 var builder = WebApplication.CreateBuilder(args);
+AzureKeyVault.Load(builder);
 // Add services to the container.
 builder.Services.AddDbContextExtension(builder.Configuration);
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
