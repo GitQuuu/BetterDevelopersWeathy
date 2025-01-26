@@ -1,16 +1,18 @@
 using System.Net;
+using Refit;
 using Services.External.WeatherApiWebService.ForeCastAsync;
 
 namespace Services.WeatherService;
 
 public partial class WeatherService
 {
-    public async Task<ServiceResult<WeatherApiResponse>> HandleWeatherDataAsync(WeatherApiResponse? apiResponse,
+    public async Task<ServiceResult<WeatherApiResponse>> HandleWeatherDataAsync(
+        ApiResponse<WeatherApiResponse> apiResponse,
         CancellationToken cancellationToken)
     {
-        if (apiResponse is null)
+        if (apiResponse.IsSuccessful is false)
         {
-            return new ServiceResult<WeatherApiResponse>(false, HttpStatusCode.BadRequest ,"Response is null");
+            return new ServiceResult<WeatherApiResponse>(false, apiResponse.StatusCode , apiResponse.Error.Content);
         }
      
         return await Task.FromResult(
@@ -18,7 +20,7 @@ public partial class WeatherService
                 true, 
                 HttpStatusCode.OK,
                 "Success",
-                apiResponse)
+                apiResponse.Content)
             );
     }
 }
