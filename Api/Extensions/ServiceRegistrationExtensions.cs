@@ -1,4 +1,5 @@
 using System.Reflection;
+using Asp.Versioning;
 using DAL.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,7 @@ public static class ServiceRegistrationExtensions
         services.AddSwaggerGen(
             c =>
             {
+               
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "BetterDevelopersWeathy API",
@@ -38,6 +40,8 @@ public static class ServiceRegistrationExtensions
                         Email = "DevQu@hotmail.com",
                     }
                 });
+                c.SwaggerDoc("v2", new OpenApiInfo { Title = "BetterDevelopersWeathy API", Version = "v2" });
+                
                 c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename), true);
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
@@ -64,6 +68,26 @@ public static class ServiceRegistrationExtensions
         );
     }
 
+    /// <summary>
+    /// Enable versioning with swagger
+    /// </summary>
+    /// <param name="services"></param>
+    public static void AddApiVersioningExtension(this IServiceCollection services)
+    {
+        services.AddApiVersioning(options =>
+            {
+                options.ReportApiVersions = true;
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+            })
+            .AddApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'VVV";
+                options.SubstituteApiVersionInUrl = true;
+            });
+        
+    }
+    
     /// <summary>
     /// Centralizing DBContext configurations
     /// </summary>

@@ -7,12 +7,14 @@ public static class MiddlewareExtensions
     /// SwaggerUi extensions
     /// </summary>
     /// <param name="app"></param>
-    public  static void UseSwaggerUiExtensions(this IApplicationBuilder app)
+    public static void UseSwaggerUiExtensions(this IApplicationBuilder app)
     {
         app.UseSwaggerUI(options =>
         {
-            options.SwaggerEndpoint("/swagger/v1/swagger.json", "My BetterDevelopersWeathy api V1");
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "My BetterDevelopersWeathy api v1");
+            options.SwaggerEndpoint("/swagger/v2/swagger.json", "My BetterDevelopersWeathy api v2");
             options.RoutePrefix = string.Empty; // Set Swagger UI at the app's root
+            
         });
     }
 }

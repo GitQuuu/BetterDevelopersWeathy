@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers.WeatherController;
+namespace Api.Controllers.WeatherController.v1;
 
 public partial class WeatherController
 {

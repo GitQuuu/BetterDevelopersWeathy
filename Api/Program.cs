@@ -11,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddHttpClientExtension(builder.Configuration);
 builder.Services.AddDefaultIdentityExtension();
 builder.Services.AddSwaggerGenExtension();
+builder.Services.AddApiVersioningExtension();
 builder.Services.AddServicesExtension();
 
 var app = builder.Build();
