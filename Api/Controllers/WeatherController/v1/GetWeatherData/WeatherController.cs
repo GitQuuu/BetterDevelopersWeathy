@@ -9,7 +9,7 @@ public partial class WeatherController
     /// </summary>
     /// <param name="query">Can be name of city or latitude and longitude</param>
     /// <param name="days"> number of days ahead to be forecasted ( only positive numbers allowed )</param>
-    /// <param name="language">specify a preferred language</param>///
+    /// <param name="language">specify a preferred language (dk, en, es etc.)</param>///
     /// <returns>
     /// Returns an HTTP response with the weather forecast data. If successful, 
     /// the response contains weather details in JSON format. If the request 

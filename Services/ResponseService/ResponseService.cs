@@ -29,6 +29,7 @@ public class ResponseService : IResponseService
         {
             HttpStatusCode.OK => new OkObjectResult(result),
             HttpStatusCode.NoContent => new NoContentResult(),
+            HttpStatusCode.Created => new CreatedResult(),
             HttpStatusCode.NotFound => new NotFoundObjectResult(result.Message),
             HttpStatusCode.BadRequest => new BadRequestObjectResult(result.Message),
             HttpStatusCode.Unauthorized => new UnauthorizedObjectResult(result.Message),
