@@ -9,11 +9,27 @@ public partial class WeatherBll
     {
         var referer = _httpContextAccessor.HttpContext.Request.Headers["Referer"].ToString();
 
-        var weatherApiResponse = await _weatherApiWebService.ForeCastAsync(city, days, language, ct);
+        if (referer == "http://localhost:4200/")
+        {
+            var weatherApiResponse = await _weatherApiWebService.ForeCastAsync(city, days, language, ct);
 
-        var response = await _weatherService.HandleWeatherDataAsync(weatherApiResponse,ct);
+            var response = await _weatherService.HandleWeatherDataAsync(weatherApiResponse,ct);
         
-        return await _responseService.HandleResultAsync(response);
+            return await _responseService.HandleResultAsync(response);
+        }
+        else
+        {
+            var nameIdentifier = _httpContextAccessor.HttpContext?.User.FindFirst("NameIdentifier")?.Value;
+            if (string.IsNullOrEmpty(nameIdentifier))
+            {
+                return Unauthorized();
+            }
+            var weatherApiResponse = await _weatherApiWebService.ForeCastAsync(city, days, language, ct);
+
+            var response = await _weatherService.HandleWeatherDataAsync(weatherApiResponse,ct);
+        
+            return await _responseService.HandleResultAsync(response);
+        }
     
     }
 }
