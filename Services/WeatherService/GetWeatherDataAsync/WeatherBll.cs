@@ -10,7 +10,7 @@ public partial class WeatherBll
     {
         var referer = _httpContextAccessor.HttpContext.Request.Headers["Referer"].ToString();
 
-        if (referer == "http://localhost:4200/")
+        if (referer is "http://localhost:4200/" or "https://betterweathy.netlify.app/")
         {
             var weatherApiResponse = await _weatherApiWebService.ForeCastAsync(city, days, language, ct);
 
