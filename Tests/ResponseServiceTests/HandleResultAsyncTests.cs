@@ -14,8 +14,10 @@ public class HandleResultAsyncTests
     }
 
     [Test]
-    public async Task HandleResultAsync_Success()
+    public async Task HandleResultAsync_WhenServiceResultIsSuccess_ShouldReturnOk()
     {
-        
+        // Arrange
+        // Act
+        // Assert
     }
-}
+}   
