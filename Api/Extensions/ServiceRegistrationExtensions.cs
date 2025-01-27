@@ -1,13 +1,19 @@
 using System.Reflection;
+using System.Text;
 using Asp.Versioning;
 using DAL.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Refit;
+using Services.AccountService;
 using Services.External.WeatherApiWebService;
 using Services.ResponseService;
+using Services.SignInManagerService;
+using Services.UserManagerService;
 using Services.WeatherService;
 
 namespace Api.Extensions;
@@ -143,6 +149,50 @@ public static class ServiceRegistrationExtensions
             .AddDefaultUI()
             .AddDefaultTokenProviders();
     }
+    
+    /// <summary>
+    ///  Extension method of AddAuthentication.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <exception cref="InvalidOperationException">Throw if jwt key is null</exception>
+    public static void AddAuthenticationExtension(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme    = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme             = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.SaveToken            = true;
+                options.RequireHttpsMetadata = true;
+						
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer           = true,
+                    ValidIssuer              = configuration["Jwt:issuer"] ?? throw new InvalidOperationException("Missing Jwt:issuer"),
+                    ValidateAudience         = true,
+                    ValidAudience            = configuration["Jwt:audience"] ?? throw new InvalidOperationException("Missing Jwt:audience"),
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey         = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"] ?? throw new InvalidOperationException("Missing Jwt:Key"))),
+                    ValidateLifetime         = true,
+                    ClockSkew                = TimeSpan.Zero,
+			
+                };
+					
+                options.Events = new JwtBearerEvents
+                {
+                    OnAuthenticationFailed = context =>
+                    {
+                        // Write to console until implementing logging
+                        Console.WriteLine("Authentication failed.", context.Exception);
+                        return Task.CompletedTask;
+                    },
+                    // Handle other events as needed
+                };
+            });
+    }
 
     /// <summary>
     /// Service registration extension
@@ -153,6 +203,10 @@ public static class ServiceRegistrationExtensions
         services.AddScoped<IWeatherBll, WeatherBll>();
         services.AddScoped<IWeatherService, WeatherService>();
         services.AddScoped<IResponseService, ResponseService>();
+        services.AddScoped<IAccountBll, AccountBll>();
+        services.AddScoped<IAccountService, AccountService>();
+        services.AddScoped<IUserManagerService, UserManagerService>();
+        services.AddScoped<ISignInManagerService, SignInManagerService>();
     }
     
      /// <summary>
