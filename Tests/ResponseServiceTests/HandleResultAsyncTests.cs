@@ -184,7 +184,7 @@ public class HandleResultAsyncTests
     {       
         // Arrange  
         var somePostDto = new TestDto { Id = 1, Name = "TestName", Email = "testemail.com" };
-        var result = new ServiceResult<TestDto>(false, httpStatus,$"Conflict");{}
+        var result = new ServiceResult<TestDto>(false, httpStatus,$"Returning conflict for status code thats not handle in the reponseservice yet YAGNI");{}
         
         // Act
         var response = await _responseService.HandleResultAsync(result);
