@@ -16,6 +16,7 @@ public partial class WeatherController
     /// is invalid, a 400 Bad Request is returned.
     /// </returns>
     /// <remarks>
+    /// Request from specific referrer always allowed, everyone else must create a user. <br />
     /// Example: GET /api/weather?query=56.1518,10.2064&amp;days=7&amp;language=dk <br />
     /// Example: GET /api/weather?query=Århus&amp;days=2&amp;language=dk
     /// </remarks>
