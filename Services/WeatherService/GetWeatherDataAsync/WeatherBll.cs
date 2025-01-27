@@ -7,6 +7,8 @@ public partial class WeatherBll
 {
     public async Task<IActionResult> GetWeatherDataAsync(string city, uint days, string language, CancellationToken ct)
     {
+        var referer = _httpContextAccessor.HttpContext.Request.Headers["Referer"].ToString();
+
         var weatherApiResponse = await _weatherApiWebService.ForeCastAsync(city, days, language, ct);
 
         var response = await _weatherService.HandleWeatherDataAsync(weatherApiResponse,ct);
