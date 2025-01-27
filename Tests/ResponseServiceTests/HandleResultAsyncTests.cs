@@ -204,4 +204,17 @@ public class HandleResultAsyncTests
         
     }
    
+    [Test]
+    public void HandleResultAsync_WhenServiceResultIsNull_ShouldThrowArgumentNullException()
+    {
+        // Arrange
+        ServiceResult<TestDto>? result = null;
+
+        // Act & Assert
+        var exception = Assert.Throws<ArgumentNullException>(() => _responseService.HandleResultAsync(result));
+
+        // Assert
+        Assert.That(exception, Is.Not.Null);
+        Assert.That(exception.ParamName, Is.EqualTo("result"));
+    }
 }   
