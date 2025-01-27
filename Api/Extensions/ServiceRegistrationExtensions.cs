@@ -9,6 +9,7 @@ using Refit;
 using Services.AccountService;
 using Services.External.WeatherApiWebService;
 using Services.ResponseService;
+using Services.SignInManagerService;
 using Services.UserManagerService;
 using Services.WeatherService;
 
@@ -158,6 +159,7 @@ public static class ServiceRegistrationExtensions
         services.AddScoped<IAccountBll, AccountBll>();
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IUserManagerService, UserManagerService>();
+        services.AddScoped<ISignInManagerService, SignInManagerService>();
     }
     
      /// <summary>

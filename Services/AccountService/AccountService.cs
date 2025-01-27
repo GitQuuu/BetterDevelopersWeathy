@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Services.SignInManagerService;
 using Services.UserManagerService;
 
 namespace Services.AccountService;
@@ -11,11 +12,13 @@ namespace Services.AccountService;
 public partial class AccountService : IAccountService
 {
     private readonly IUserManagerService _userManagerService;
+    private readonly ISignInManagerService _signInManagerService;
     private readonly IConfiguration _configuration;
 
-    public AccountService(IUserManagerService userManagerService, IConfiguration configuration)
+    public AccountService(IUserManagerService userManagerService, ISignInManagerService signInManagerService, IConfiguration configuration)
     {
         _userManagerService = userManagerService;
+        _signInManagerService = signInManagerService;
         _configuration = configuration;
     }
     

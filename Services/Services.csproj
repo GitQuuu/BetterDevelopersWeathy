@@ -11,8 +11,4 @@
       <ProjectReference Include="..\Dependencies\Dependencies.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="SignInManagerService\" />
-    </ItemGroup>
-
 </Project>
