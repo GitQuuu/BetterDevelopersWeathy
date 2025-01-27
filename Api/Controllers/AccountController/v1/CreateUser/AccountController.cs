@@ -1,8 +1,9 @@
+using Api.Controllers.AccountController.v1.CreateUser;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Services.AccountService;
 
-namespace Api.Controllers.AccountController;
+namespace Api.Controllers.AccountController.v1;
 
 public partial class AccountController
 {
