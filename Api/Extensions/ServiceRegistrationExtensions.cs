@@ -155,6 +155,7 @@ public static class ServiceRegistrationExtensions
         services.AddScoped<IWeatherService, WeatherService>();
         services.AddScoped<IResponseService, ResponseService>();
         services.AddScoped<IAccountBll, AccountBll>();
+        services.AddScoped<IAccountService, AccountService>();
     }
     
      /// <summary>
