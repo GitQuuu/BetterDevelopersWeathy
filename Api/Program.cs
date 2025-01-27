@@ -15,6 +15,7 @@ builder.Services.AddSwaggerGenExtension();
 builder.Services.AddApiVersioningExtension();
 builder.Services.AddServicesExtension();
 builder.Services.AddCorsExtension();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
