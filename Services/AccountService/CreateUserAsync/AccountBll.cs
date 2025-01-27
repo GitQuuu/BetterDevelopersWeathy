@@ -12,6 +12,8 @@ public partial class AccountBll
             return await _responseService.HandleResultAsync(initUser);
         }
         
+        //ToDo Add emailservice here  in the future , with callback for account activation
+        
         return await _responseService.HandleResultAsync(initUser);
     }
 }
