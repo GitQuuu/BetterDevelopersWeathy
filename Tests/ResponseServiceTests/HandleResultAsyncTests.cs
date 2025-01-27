@@ -24,7 +24,7 @@ public class HandleResultAsyncTests
     }
 
     [Test]
-    public async Task HandleResultAsync_WhenServiceResultIsSuccessWithBody_ShouldReturnOk()
+    public async Task HandleResultAsync_WhenServiceResultHttpResponseTypeIsIsSuccessWithBody_ShouldReturnOk()
     {
         // Arrange
         var someResultDto = new TestDto { Id = 1, Name = "TestName" };
@@ -48,7 +48,7 @@ public class HandleResultAsyncTests
     }
     
     [Test]
-    public async Task HandleResultAsync_WhenServiceResultIsSuccessWithoutBody_ShouldReturnNoContent()
+    public async Task HandleResultAsync_WhenServiceResultHttpResponseTypeIsIsSuccessWithoutBody_ShouldReturnNoContent()
     {
         // Arrange
         var somePostDto = new TestDto { Id = 1, Name = "TestName" };
@@ -71,7 +71,7 @@ public class HandleResultAsyncTests
     }
     
     [Test]
-    public async Task HandleResultAsync_WhenServiceResultIsFailureWithNotFound_ShouldReturnNotFound()
+    public async Task HandleResultAsync_WhenServiceResultHttpResponseTypeIsIsFailureWithNotFound_ShouldReturnNotFound()
     {       
         // Arrange  
         var somePostDto = new TestDto { Id = 1, Name = "TestName" };
@@ -96,7 +96,7 @@ public class HandleResultAsyncTests
     }
     
     [Test]
-    public async Task HandleResultAsync_WhenServiceResultIsFailureWithBadRequest_ShouldReturnBadRequest()
+    public async Task HandleResultAsync_WhenServiceResultHttpResponseTypeIsIsFailureWithBadRequest_ShouldReturnBadRequest()
     {       
         // Arrange  
         var somePostDto = new TestDto { Id = 1, Name = "TestName", Email = "testemail.com" };
@@ -116,6 +116,90 @@ public class HandleResultAsyncTests
         Assert.That(response, Is.Not.InstanceOf<UnauthorizedObjectResult>());
         Assert.That(response, Is.Not.InstanceOf<ConflictObjectResult>());
         Assert.That(okResult?.StatusCode, Is.EqualTo(400));
+        Assert.That(okResult?.Value, Is.Not.Null);
+        
+    }
+    
+    [Test]
+    public async Task HandleResultAsync_WhenServiceResultHttpResponseTypeIsIsFailureWithUnauthorized_ShouldReturnUnauthorized()
+    {       
+        // Arrange  
+        var somePostDto = new TestDto { Id = 1, Name = "TestName", Email = "testemail.com" };
+        var result = new ServiceResult<TestDto>(false, HttpStatusCode.Unauthorized,$"Not logged in");{}
+        
+        // Act
+        var response = await _responseService.HandleResultAsync(result);
+        var okResult = response as UnauthorizedObjectResult;
+        
+        // Assert
+        Assert.That(response, Is.Not.Null);
+        Assert.That(response, Is.Not.InstanceOf<NotFoundObjectResult>());
+        Assert.That(response, Is.Not.InstanceOf<OkObjectResult>());
+        Assert.That(response, Is.Not.InstanceOf<NoContentResult>());
+        Assert.That(response, Is.Not.InstanceOf<NotFoundResult>());
+        Assert.That(response, Is.Not.InstanceOf<BadRequestObjectResult>());
+        Assert.That(response, Is.InstanceOf<UnauthorizedObjectResult>());
+        Assert.That(response, Is.Not.InstanceOf<ConflictObjectResult>());
+        Assert.That(okResult?.StatusCode, Is.EqualTo(401));
+        Assert.That(okResult?.Value, Is.Not.Null);
+        
+    }
+    
+    [Test]
+    public async Task HandleResultAsync_WhenServiceResultHttpResponseTypeIsIsFailureWithForbidden_ShouldReturnForbidden() 
+    {       
+        // Arrange  
+        var somePostDto = new TestDto { Id = 1, Name = "TestName", Email = "testemail.com" };
+        var result = new ServiceResult<TestDto>(false, HttpStatusCode.Forbidden,$"Insufficient access");{}
+        
+        // Act
+        var response = await _responseService.HandleResultAsync(result);
+        var okResult = response as ObjectResult;
+        
+        // Assert
+        Assert.That(response, Is.Not.Null);
+        Assert.That(response, Is.Not.InstanceOf<NotFoundObjectResult>());
+        Assert.That(response, Is.Not.InstanceOf<OkObjectResult>());
+        Assert.That(response, Is.Not.InstanceOf<NoContentResult>());
+        Assert.That(response, Is.Not.InstanceOf<NotFoundResult>());
+        Assert.That(response, Is.Not.InstanceOf<BadRequestObjectResult>());
+        Assert.That(response, Is.Not.InstanceOf<UnauthorizedObjectResult>());
+        Assert.That(response, Is.Not.InstanceOf<ConflictObjectResult>());
+        Assert.That(response, Is.InstanceOf<ObjectResult>());
+        Assert.That(okResult?.StatusCode, Is.EqualTo(403));
+        Assert.That(okResult?.Value, Is.Not.Null);
+        
+    }
+    
+    [Test]
+    [TestCase(HttpStatusCode.Accepted)]
+    [TestCase(HttpStatusCode.Ambiguous)]
+    [TestCase(HttpStatusCode.Continue)]
+    [TestCase(HttpStatusCode.Gone)]
+    [TestCase(HttpStatusCode.FailedDependency)]
+    [TestCase(HttpStatusCode.LoopDetected)]
+    [TestCase(HttpStatusCode.Found)]
+    [TestCase(HttpStatusCode.ServiceUnavailable)] 
+    public async Task HandleResultAsync_WhenServiceResultHttpResponseTypeIsNotSpecifiedInTheResponseService_ShouldReturnConflict(HttpStatusCode httpStatus) 
+    {       
+        // Arrange  
+        var somePostDto = new TestDto { Id = 1, Name = "TestName", Email = "testemail.com" };
+        var result = new ServiceResult<TestDto>(false, httpStatus,$"Conflict");{}
+        
+        // Act
+        var response = await _responseService.HandleResultAsync(result);
+        var okResult = response as ConflictObjectResult;
+        
+        // Assert
+        Assert.That(response, Is.Not.Null);
+        Assert.That(response, Is.Not.InstanceOf<NotFoundObjectResult>());
+        Assert.That(response, Is.Not.InstanceOf<OkObjectResult>());
+        Assert.That(response, Is.Not.InstanceOf<NoContentResult>());
+        Assert.That(response, Is.Not.InstanceOf<NotFoundResult>());
+        Assert.That(response, Is.Not.InstanceOf<BadRequestObjectResult>());
+        Assert.That(response, Is.Not.InstanceOf<UnauthorizedObjectResult>());
+        Assert.That(response, Is.InstanceOf<ConflictObjectResult>());
+        Assert.That(okResult?.StatusCode, Is.EqualTo(409));
         Assert.That(okResult?.Value, Is.Not.Null);
         
     }
