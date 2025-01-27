@@ -43,7 +43,9 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseCors("AllowBetterWeathy"); 
+
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapStaticAssets();
 

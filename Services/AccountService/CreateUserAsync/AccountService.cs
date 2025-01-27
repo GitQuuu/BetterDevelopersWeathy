@@ -12,11 +12,11 @@ public partial class AccountService
             return new ServiceResult<IdentityUser?>(false, HttpStatusCode.BadRequest, "Password isn't identical");
         }
 
-        var result = await _userManagerService.CreateUserAsync(dto, dto.Password, token);
+        var result = await _userManagerService.CreateUserAsync(dto, token);
 		
         if (result.Success is false)
         {
-            return new ServiceResult<IdentityUser?>(false,HttpStatusCode.Conflict);
+            return new ServiceResult<IdentityUser?>(false,HttpStatusCode.Conflict, result.Message);
         }
 		
         return new ServiceResult<IdentityUser?>(result.Success,result.HttpResponse,result.Message,result.Data);

@@ -5,5 +5,5 @@ namespace Services.UserManagerService;
 
 public partial interface IUserManagerService
 {
-    Task<ServiceResult<IdentityUser>> CreateUserAsync(CreateUserRequestDto dto, string dtoPassword, CancellationToken token);
+    Task<ServiceResult<IdentityUser>> CreateUserAsync(CreateUserRequestDto dto, CancellationToken token);
 }
