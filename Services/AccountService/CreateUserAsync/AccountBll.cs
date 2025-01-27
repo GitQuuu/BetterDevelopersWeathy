@@ -4,8 +4,14 @@ namespace Services.AccountService;
 
 public partial class AccountBll
 {
-    public Task<ActionResult> CreateUserAsync(CreateUserRequestDto adapt)
+    public async Task<IActionResult> CreateUserAsync(CreateUserRequestDto dto, CancellationToken token)
     {
-        throw new NotImplementedException();
+        var initUser = await _accountService.Registration(dto, token);
+        if (initUser.Data is null)
+        {
+            return await _responseService.HandleResultAsync(initUser);
+        }
+        
+        return await _responseService.HandleResultAsync(initUser);
     }
 }

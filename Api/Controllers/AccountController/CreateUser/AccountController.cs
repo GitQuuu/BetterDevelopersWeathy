@@ -12,7 +12,7 @@ public partial class AccountController
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<ActionResult> CreateUser(CreateUserRequest request)
+    public async Task<IActionResult> CreateUser(CreateUserRequest request)
     {
         return await _accountBll.CreateUserAsync(request.Adapt<CreateUserRequestDto>());
     }

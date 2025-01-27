@@ -4,5 +4,5 @@ namespace Services.AccountService;
 
 public partial interface IAccountBll
 {
-    Task<ActionResult> CreateUserAsync(CreateUserRequestDto adapt);
+    Task<IActionResult> CreateUserAsync(CreateUserRequestDto dto, CancellationToken token = default);
 }
