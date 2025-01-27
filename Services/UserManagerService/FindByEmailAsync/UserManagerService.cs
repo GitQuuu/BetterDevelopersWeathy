@@ -5,9 +5,9 @@ namespace Services.UserManagerService;
 
 public partial class UserManagerService
 {
-    public async Task<ServiceResult<IdentityUser>> FindByNameAsync(string dtoEmail)
+    public async Task<ServiceResult<IdentityUser>> FindByEmailAsync(string dtoEmail)
     {
-        var result = await _userManager.FindByNameAsync(dtoEmail);
+        var result = await _userManager.FindByEmailAsync(dtoEmail);
         if (result is null)
         {
             return new ServiceResult<IdentityUser>(false, HttpStatusCode.NotFound, "Not Found");

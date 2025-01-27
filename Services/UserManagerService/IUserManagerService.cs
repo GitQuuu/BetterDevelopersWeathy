@@ -6,5 +6,5 @@ namespace Services.UserManagerService;
 public partial interface IUserManagerService
 {
     Task<ServiceResult<IdentityUser>> CreateUserAsync(CreateUserRequestDto dto, CancellationToken token);
-    Task<ServiceResult<IdentityUser>> FindByNameAsync(string dtoEmail);
+    Task<ServiceResult<IdentityUser>> FindByEmailAsync(string dtoEmail);
 }
