@@ -5,7 +5,7 @@ using Services.AccountService;
 
 namespace Services.UserManagerService;
 
-public partial class UserManagerService : IUserManagerService
+public partial class UserManagerService
 {
     public async Task<ServiceResult<IdentityUser>> CreateUserAsync(CreateUserRequestDto dto, CancellationToken token)
     {
