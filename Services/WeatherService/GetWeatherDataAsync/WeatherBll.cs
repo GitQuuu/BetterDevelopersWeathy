@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Services.WeatherService;
@@ -19,7 +20,7 @@ public partial class WeatherBll
         }
         else
         {
-            var nameIdentifier = _httpContextAccessor.HttpContext?.User.FindFirst("NameIdentifier")?.Value;
+            var nameIdentifier = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(nameIdentifier))
             {
                 return Unauthorized();
