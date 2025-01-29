@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.External.WeatherApiWebService;
+using Services.RequestContextAccessorService;
 using Services.ResponseService;
 
 
@@ -17,17 +18,20 @@ public partial class WeatherBll : ControllerBase, IWeatherBll
     private readonly IWeatherService _weatherService;
     private readonly IResponseService _responseService;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IRequestContextAccessorService _requestContextAccessorService;
 
     public WeatherBll(
         IWeatherApiWebService weatherApiWebService,
         IWeatherService weatherService,
         IResponseService responseService,
-        IHttpContextAccessor httpContextAccessor
+        IHttpContextAccessor httpContextAccessor,
+        IRequestContextAccessorService requestContextAccessorService
     )
     {
         _weatherApiWebService = weatherApiWebService;
         _weatherService = weatherService;
         _responseService = responseService;
         _httpContextAccessor = httpContextAccessor;
+        _requestContextAccessorService = requestContextAccessorService;
     }
 }

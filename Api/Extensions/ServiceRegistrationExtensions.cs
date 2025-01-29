@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using Refit;
 using Services.AccountService;
 using Services.External.WeatherApiWebService;
+using Services.RequestContextAccessorService;
 using Services.ResponseService;
 using Services.SignInManagerService;
 using Services.UserManagerService;
@@ -207,6 +208,7 @@ public static class ServiceRegistrationExtensions
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IUserManagerService, UserManagerService>();
         services.AddScoped<ISignInManagerService, SignInManagerService>();
+        services.AddScoped<IRequestContextAccessorService, RequestContextAccessorService>();
     }
     
      /// <summary>
